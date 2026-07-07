@@ -2,23 +2,37 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { useLanguage } from '../hooks/useLanguage'
 import useScrollReveal from '../hooks/useScrollReveal'
 
-const PLACEHOLDER_GRADIENTS = [
-  'linear-gradient(135deg, #1B3D2F 0%, #A8E63D 100%)',
-  'linear-gradient(135deg, #0D1F18 0%, #1B3D2F 100%)',
-  'linear-gradient(135deg, #A8E63D 0%, #6BAE1A 100%)',
-  'linear-gradient(135deg, #2D5A4A 0%, #1B3D2F 100%)',
-  'linear-gradient(135deg, #3D7A5F 0%, #A8E63D 50%, #0D1F18 100%)',
-  'linear-gradient(135deg, #0D1F18 0%, #A8E63D 50%, #1B3D2F 100%)',
-]
+function ProjectCard({ project, index }) {
+  const [loaded, setLoaded] = useState(false)
 
-function PlaceholderProjectCard({ project, index }) {
   return (
     <article className="group relative overflow-hidden rounded-2xl aspect-[4/3] flex flex-col justify-end p-8 border border-white/10 hover:border-primary-fixed/40 focus-within:border-primary-fixed/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(168,230,61,0.2)] shrink-0 w-full">
-      <div
-        className="absolute inset-0 group-hover:scale-110 transition-transform duration-700 motion-reduce:transform-none"
-        style={{ background: PLACEHOLDER_GRADIENTS[index % PLACEHOLDER_GRADIENTS.length] }}
+      <img
+        src={project.image}
+        alt={project.title}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-110 motion-reduce:transform-none ${
+          loaded ? 'opacity-100' : 'opacity-0'
+        }`}
       />
-      <div className="absolute inset-0 bg-black/40" />
+      {!loaded && (
+        <div
+          className="absolute inset-0 group-hover:scale-110 transition-transform duration-700 motion-reduce:transform-none"
+          style={{
+            background:
+              [
+                'linear-gradient(135deg, #1B3D2F 0%, #A8E63D 100%)',
+                'linear-gradient(135deg, #0D1F18 0%, #1B3D2F 100%)',
+                'linear-gradient(135deg, #A8E63D 0%, #6BAE1A 100%)',
+                'linear-gradient(135deg, #2D5A4A 0%, #1B3D2F 100%)',
+                'linear-gradient(135deg, #3D7A5F 0%, #A8E63D 50%, #0D1F18 100%)',
+                'linear-gradient(135deg, #0D1F18 0%, #A8E63D 50%, #1B3D2F 100%)',
+              ][index % 6]
+          }}
+        ></div>
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
       <div className="relative z-10 bg-black/60 backdrop-blur-sm p-6 rounded-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 motion-reduce:transform-none border border-white/5">
         <h3 className="text-headline-md font-bold mb-2">{project.title}</h3>
         <p className="text-body-md opacity-80">{project.description}</p>
@@ -145,7 +159,7 @@ function ProjectsBento() {
                 }`}
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                <PlaceholderProjectCard project={project} index={i} />
+                <ProjectCard project={project} index={i} />
               </div>
             ))}
           </div>
