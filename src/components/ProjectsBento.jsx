@@ -35,8 +35,8 @@ function ProjectsBento() {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
 
-  const items = activeTag
-    ? t.projects.items
+  const items = activeTag !== null
+    ? t.projects.items.filter((p) => p.tag === t.projects.tags[activeTag])
     : t.projects.items
 
   const updateScrollButtons = useCallback(() => {

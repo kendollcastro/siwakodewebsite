@@ -84,26 +84,32 @@ const translations = {
         {
           title: 'Miiny - UI Responsive',
           description: 'Experiencia e-commerce para moda sostenible.',
+          tag: 'UI/UX',
         },
         {
           title: 'Ransop - App Dev',
           description: 'Sistema de gestión logística multiplataforma.',
+          tag: 'UI/UX',
         },
         {
           title: 'SaborCR - Restaurante',
           description: 'Plataforma de pedidos y menú digital interactivo.',
+          tag: 'Diseño Web',
         },
         {
           title: 'MediQuick - Health',
           description: 'Portal de pacientes y agendamiento de citas.',
+          tag: 'UI/UX',
         },
         {
           title: 'EcoBuild - SaaS',
           description: 'Panel de control para construcción sostenible.',
+          tag: 'SaaS',
         },
         {
           title: 'SportZone - E-commerce',
           description: 'Tienda online con catálogo dinámico y pagos.',
+          tag: 'Branding',
         },
       ],
     },
@@ -258,26 +264,32 @@ const translations = {
         {
           title: 'Miiny - Responsive UI',
           description: 'E-commerce experience for sustainable fashion.',
+          tag: 'UI/UX',
         },
         {
           title: 'Ransop - App Dev',
           description: 'Cross-platform logistics management system.',
+          tag: 'UI/UX',
         },
         {
           title: 'SaborCR - Restaurant',
           description: 'Online ordering and interactive digital menu.',
+          tag: 'Web Design',
         },
         {
           title: 'MediQuick - Health',
           description: 'Patient portal and appointment scheduling.',
+          tag: 'UI/UX',
         },
         {
           title: 'EcoBuild - SaaS',
           description: 'Dashboard for sustainable construction management.',
+          tag: 'SaaS',
         },
         {
           title: 'SportZone - E-commerce',
           description: 'Online store with dynamic catalog and payments.',
+          tag: 'Branding',
         },
       ],
     },
