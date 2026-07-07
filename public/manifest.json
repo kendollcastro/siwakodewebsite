@@ -1,0 +1,16 @@
+{
+  "name": "Siwakode — Web Development & Digital Solutions",
+  "short_name": "Siwakode",
+  "description": "Custom websites, e-commerce platforms, and web applications that help businesses grow.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1F18",
+  "theme_color": "#0D1F18",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

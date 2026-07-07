@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1B3D2F;
+  --color-primary-fixed: #A8E63D;
+  --color-on-primary-fixed: #0D1F18;
+  --color-surface: #F0FAE8;
+  --color-on-surface: #1B3D2F;
+  --color-background: #F0FAE8;
+  --color-on-background: #1B3D2F;
+  --color-surface-container: #E1F2D1;
+  --color-surface-container-low: #E8F5DC;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-on-tertiary-fixed: #0D1F18;
+  --color-secondary-container: #A8E63D;
+  --color-on-secondary-container: #0D1F18;
+  --color-outline: #8b928d;
+  --color-outline-variant: #C4C9AC;
+
+  --font-body-lg: Sora, sans-serif;
+  --font-body-md: Sora, sans-serif;
+  --font-headline-md: Sora, sans-serif;
+  --font-label-md: Sora, sans-serif;
+  --font-headline-lg: Sora, sans-serif;
+  --font-display-lg: Sora, sans-serif;
+  --font-headline-xl: Sora, sans-serif;
+  --font-display-lg-mobile: Sora, sans-serif;
+
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --spacing-stack-lg: 3rem;
+  --spacing-stack-sm: 0.5rem;
+  --spacing-section-gap-mobile: 4rem;
+  --spacing-section-gap: 8rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-container-padding: 1.5rem;
+  --spacing-stack-md: 1.5rem;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 80px;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body-md);
+    color: var(--color-on-surface);
+    background: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    overflow-x: hidden;
+  }
+}
+
+@utility text-body-lg {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 300;
+  font-family: var(--font-body-lg);
+}
+
+@utility text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: var(--font-body-md);
+}
+
+@utility text-headline-md {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 600;
+  font-family: var(--font-headline-md);
+}
+
+@utility text-label-md {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  font-family: var(--font-label-md);
+}
+
+@utility text-headline-lg {
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-family: var(--font-headline-lg);
+}
+
+@utility text-display-lg {
+  font-size: 72px;
+  line-height: 80px;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  font-family: var(--font-display-lg);
+}
+
+@utility text-headline-xl {
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-family: var(--font-headline-xl);
+}
+
+@utility text-display-lg-mobile {
+  font-size: 48px;
+  line-height: 52px;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  font-family: var(--font-display-lg-mobile);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.scribble-accent {
+  position: relative;
+}
+
+.scribble-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='20' viewBox='0 0 200 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 15.5C30 8.5 70 2.5 100 15.5C130 28.5 170 5.5 198 2' stroke='%23A8E63D' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.mesh-bg {
+  background-image: radial-gradient(at 100% 0%, rgba(168, 230, 61, 0.15) 0, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(27, 61, 47, 0.1) 0, transparent 50%);
+}
+
+.dot-pattern {
+  background-image: radial-gradient(#A8E63D 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
