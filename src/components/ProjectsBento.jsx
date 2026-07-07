@@ -13,13 +13,13 @@ const PLACEHOLDER_GRADIENTS = [
 
 function PlaceholderProjectCard({ project, index }) {
   return (
-    <article className="group relative overflow-hidden rounded-2xl aspect-[4/3] flex flex-col justify-end p-8 border-4 border-transparent hover:border-primary-fixed focus-within:border-primary-fixed transition-all duration-500">
+    <article className="group relative overflow-hidden rounded-2xl aspect-[4/3] flex flex-col justify-end p-8 border border-white/10 hover:border-primary-fixed/40 focus-within:border-primary-fixed/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(168,230,61,0.2)]">
       <div
         className="absolute inset-0 group-hover:scale-110 transition-transform duration-700 motion-reduce:transform-none"
         style={{ background: PLACEHOLDER_GRADIENTS[index % PLACEHOLDER_GRADIENTS.length] }}
       />
-      <div className="absolute inset-0 bg-[#0D1F18]/30" />
-      <div className="relative z-10 bg-[#0D1F18]/90 p-6 rounded-xl backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 motion-reduce:transform-none">
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="relative z-10 bg-black/60 backdrop-blur-sm p-6 rounded-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 motion-reduce:transform-none border border-white/5">
         <h3 className="text-headline-md font-bold mb-2">{project.title}</h3>
         <p className="text-body-md opacity-80">{project.description}</p>
       </div>

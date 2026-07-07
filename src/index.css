@@ -183,3 +183,56 @@
   }
 }
 
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glow-green {
+  box-shadow: 0 0 30px -5px rgba(168, 230, 61, 0.3);
+}
+
+.glow-green-sm {
+  box-shadow: 0 0 20px -5px rgba(168, 230, 61, 0.2);
+}
+
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(168, 230, 61, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 230, 61, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(40px, 30px) scale(1.02); }
+}
+
+.animate-blob {
+  animation: blob 20s ease-in-out infinite;
+}
+
+.animate-blob-delayed {
+  animation: blob 25s ease-in-out infinite reverse;
+}
+
+.hairline {
+  border-width: 0.5px;
+}
+
+@media (min-resolution: 2dppx) {
+  .hairline {
+    border-width: 1px;
+  }
+}

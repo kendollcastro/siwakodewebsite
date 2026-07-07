@@ -14,44 +14,41 @@ function Testimonials() {
 
   return (
     <section
-      className="py-section-gap bg-primary-fixed relative overflow-hidden"
+      className="py-section-gap bg-[#0A1410] relative overflow-hidden"
       aria-labelledby="testimonials-title"
     >
-      <div className="absolute top-0 right-0 p-20 opacity-10 pointer-events-none" aria-hidden="true">
-        <span
-          className="material-symbols-outlined text-[300px] text-[#1B3D2F]"
-          style={{ fontVariationSettings: "'FILL' 1" }}
-        >
-          format_quote
-        </span>
-      </div>
+      <div className="absolute inset-0 pointer-events-none tech-grid opacity-30" />
+      <div
+        className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-primary-fixed/5 blur-3xl animate-blob pointer-events-none"
+        aria-hidden="true"
+      />
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div
           className={`text-center mb-16 transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 id="testimonials-title" className="text-headline-xl text-on-primary-fixed">
+          <h2 id="testimonials-title" className="text-headline-xl text-white">
             {t.testimonials.sectionTitle}{' '}
-            <span className="text-[#1B3D2F]">{t.testimonials.sectionTitleAccent}</span>
+            <span className="text-primary-fixed">{t.testimonials.sectionTitleAccent}</span>
           </h2>
         </div>
-        <div
-          className={`max-w-4xl mx-auto bg-[#0D1F18] p-12 md:p-20 rounded-3xl relative shadow-2xl transition-all duration-700 delay-200 ${
+          <div
+          className={`max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 p-12 md:p-20 rounded-3xl relative shadow-2xl transition-all duration-700 delay-200 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="flex items-center gap-6 mb-10">
-            <div className="w-20 h-20 rounded-full border-4 border-primary-fixed overflow-hidden bg-surface-container-low shrink-0 flex items-center justify-center text-primary-fixed text-headline-md font-bold">
+            <div className="w-20 h-20 rounded-full border border-primary-fixed/30 overflow-hidden bg-white/5 shrink-0 flex items-center justify-center text-primary-fixed text-headline-md font-bold">
               {testimonial.name.charAt(0)}
             </div>
             <div>
               <h3 className="text-headline-md font-bold text-white">{testimonial.name}</h3>
-              <p className="text-primary-fixed font-bold">{testimonial.role}</p>
+              <p className="text-primary-fixed/80 font-bold">{testimonial.role}</p>
             </div>
           </div>
           <blockquote>
-            <p className="text-headline-md text-white leading-relaxed italic">
+            <p className="text-headline-md text-white/90 leading-relaxed italic">
               {testimonial.quote}
             </p>
           </blockquote>

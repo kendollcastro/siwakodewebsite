@@ -62,7 +62,7 @@ function CtaForm() {
     >
       <div className="max-w-7xl mx-auto px-6" ref={ref}>
         <div
-          className={`bg-[#0D1F18] rounded-[40px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-stretch shadow-2xl transition-all duration-700 ${
+          className={`bg-black/40 backdrop-blur-xl border border-white/10 rounded-[40px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-stretch shadow-2xl transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -128,7 +128,7 @@ function CtaForm() {
                 )}
               </div>
               <button
-                className="bg-primary-fixed text-on-primary-fixed w-full md:w-auto px-10 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 focus-visible:outline-2 focus-visible:outline-white"
+                className="bg-primary-fixed text-on-primary-fixed w-full md:w-auto px-10 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 focus-visible:outline-2 focus-visible:outline-white glow-green"
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
               >
@@ -165,7 +165,7 @@ function CtaForm() {
               width="800"
               height="600"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0D1F18] to-transparent lg:from-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent lg:from-transparent" />
           </div>
         </div>
       </div>
