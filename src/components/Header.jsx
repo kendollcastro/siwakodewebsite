@@ -27,8 +27,8 @@ function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'py-2 glass-dark shadow-lg'
-          : 'py-4 bg-transparent'
+          ? 'py-2 bg-[#0A1410]/80 backdrop-blur-2xl shadow-lg'
+          : 'py-4 bg-[#0A1410]/60 backdrop-blur-2xl'
       }`}
     >
       <nav className="flex justify-between items-center w-full px-6 py-2 max-w-7xl mx-auto">
@@ -42,7 +42,7 @@ function Header() {
             <a
               key={item.label}
               href={item.href}
-              className="text-white/60 hover:text-primary-fixed text-label-md transition-all duration-200 focus-visible:outline-2 focus-visible:outline-primary-fixed relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-primary-fixed after:w-0 hover:after:w-full after:transition-all after:duration-300"
+              className="text-white/85 hover:text-primary-fixed text-label-md transition-all duration-200 focus-visible:outline-2 focus-visible:outline-primary-fixed relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-primary-fixed after:w-0 hover:after:w-full after:transition-all after:duration-300"
             >
               {item.label}
             </a>

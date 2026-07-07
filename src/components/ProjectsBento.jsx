@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useLanguage } from '../hooks/useLanguage'
 import useScrollReveal from '../hooks/useScrollReveal'
 
@@ -13,7 +13,7 @@ const PLACEHOLDER_GRADIENTS = [
 
 function PlaceholderProjectCard({ project, index }) {
   return (
-    <article className="group relative overflow-hidden rounded-2xl aspect-[4/3] flex flex-col justify-end p-8 border border-white/10 hover:border-primary-fixed/40 focus-within:border-primary-fixed/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(168,230,61,0.2)]">
+    <article className="group relative overflow-hidden rounded-2xl aspect-[4/3] flex flex-col justify-end p-8 border border-white/10 hover:border-primary-fixed/40 focus-within:border-primary-fixed/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(168,230,61,0.2)] shrink-0 w-full">
       <div
         className="absolute inset-0 group-hover:scale-110 transition-transform duration-700 motion-reduce:transform-none"
         style={{ background: PLACEHOLDER_GRADIENTS[index % PLACEHOLDER_GRADIENTS.length] }}
@@ -27,13 +27,38 @@ function PlaceholderProjectCard({ project, index }) {
   )
 }
 
-const INITIAL_COUNT = 2
-
 function ProjectsBento() {
   const { t } = useLanguage()
   const [ref, visible] = useScrollReveal()
-  const [showAll, setShowAll] = useState(false)
-  const items = showAll ? t.projects.items : t.projects.items.slice(0, INITIAL_COUNT)
+  const [activeTag, setActiveTag] = useState(null)
+  const scrollRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const items = activeTag
+    ? t.projects.items
+    : t.projects.items
+
+  const updateScrollButtons = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 10)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+  }, [])
+
+  const scroll = (dir) => {
+    const el = scrollRef.current
+    if (!el) return
+    const amount = el.clientWidth * 0.8
+    el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', updateScrollButtons, { passive: true })
+    return () => el.removeEventListener('scroll', updateScrollButtons)
+  }, [updateScrollButtons])
 
   return (
     <section
@@ -44,11 +69,11 @@ function ProjectsBento() {
       <div className="absolute inset-0 bg-primary-fixed opacity-5 mesh-bg" />
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div
-          className={`flex flex-col md:flex-row justify-between items-end mb-16 gap-8 transition-all duration-700 ${
+          className={`flex flex-col md:flex-row justify-between items-end mb-12 gap-8 transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="max-w-2xl">
+          <div className="max-w-2xl w-full">
             <p className="text-primary-fixed text-small font-bold tracking-widest mb-4">
               {t.projects.sectionTitle}
             </p>
@@ -56,47 +81,74 @@ function ProjectsBento() {
               {t.projects.sectionTitle}{' '}
               <span className="scribble-accent">{t.projects.sectionTitleAccent}</span>
             </h2>
-            <div className="flex flex-wrap gap-3" role="list" aria-label="Project categories">
+            <div className="flex flex-wrap gap-3" role="tablist" aria-label="Project categories">
+              <button
+                role="tab"
+                aria-selected={activeTag === null}
+                onClick={() => setActiveTag(null)}
+                className={`px-4 py-1.5 rounded-full text-label-md cursor-pointer transition-all duration-200 ${
+                  activeTag === null
+                    ? 'bg-primary-fixed text-on-primary-fixed'
+                    : 'border border-white/20 text-white/60 hover:text-white hover:border-white/40'
+                }`}
+              >
+                All
+              </button>
               {t.projects.tags.map((tag, i) => (
-                <span
+                <button
                   key={tag}
-                  role="listitem"
-                  className={`px-4 py-1 rounded-full text-label-md ${
-                    i === 0
-                      ? 'border border-primary-fixed text-primary-fixed'
-                      : 'border border-white/20'
+                  role="tab"
+                  aria-selected={activeTag === i}
+                  onClick={() => setActiveTag(activeTag === i ? null : i)}
+                  className={`px-4 py-1.5 rounded-full text-label-md cursor-pointer transition-all duration-200 ${
+                    activeTag === i
+                      ? 'bg-primary-fixed text-on-primary-fixed'
+                      : 'border border-white/20 text-white/60 hover:text-white hover:border-white/40'
                   }`}
                 >
                   {tag}
-                </span>
+                </button>
               ))}
             </div>
           </div>
-          <button
-            onClick={() => setShowAll((prev) => !prev)}
-            className="text-primary-fixed font-bold flex items-center gap-2 group focus-visible:outline-2 focus-visible:outline-primary-fixed cursor-pointer"
-            aria-expanded={showAll}
-          >
-            {showAll ? t.projects.viewLess : t.projects.viewAll}{' '}
-            <span className={`material-symbols-outlined transition-transform duration-300 motion-reduce:transform-none ${
-              showAll ? 'rotate-180' : 'group-hover:translate-x-2'
-            }`} aria-hidden="true">
-              {showAll ? 'expand_less' : 'arrow_forward'}
-            </span>
-          </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {items.map((project, i) => (
-            <div
-              key={project.title}
-              className={`transition-all duration-700 ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
+
+        <div className="relative">
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll('left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-primary-fixed hover:text-on-primary-fixed transition-all duration-200 cursor-pointer -ml-5"
+              aria-label="Previous projects"
             >
-              <PlaceholderProjectCard project={project} index={i} />
-            </div>
-          ))}
+              <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll('right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-primary-fixed hover:text-on-primary-fixed transition-all duration-200 cursor-pointer -mr-5"
+              aria-label="Next projects"
+            >
+              <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+            </button>
+          )}
+
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            {items.map((project, i) => (
+              <div
+                key={project.title}
+                className={`snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] transition-all duration-700 ${
+                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <PlaceholderProjectCard project={project} index={i} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

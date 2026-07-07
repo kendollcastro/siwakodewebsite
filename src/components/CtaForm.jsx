@@ -78,7 +78,7 @@ function CtaForm() {
                 <input
                   id="cta-email"
                   name="email"
-                  className={`w-full bg-white/10 border-b-2 py-4 px-0 focus:ring-0 placeholder:text-white/50 transition-all outline-none ${
+                  className={`w-full bg-white/10 border-b-2 py-4 px-4 focus:ring-0 placeholder:text-white/50 transition-all outline-none ${
                     errors.email
                       ? 'border-red-400 text-red-400'
                       : 'border-primary-fixed/30 text-white focus:border-primary-fixed'
@@ -106,7 +106,7 @@ function CtaForm() {
                 <textarea
                   id="cta-message"
                   name="message"
-                  className={`w-full bg-white/10 border-b-2 py-4 px-0 focus:ring-0 placeholder:text-white/50 transition-all outline-none resize-none ${
+                  className={`w-full bg-white/10 border-b-2 py-4 px-4 focus:ring-0 placeholder:text-white/50 transition-all outline-none resize-none ${
                     errors.message
                       ? 'border-red-400 text-red-400'
                       : 'border-primary-fixed/30 text-white focus:border-primary-fixed'

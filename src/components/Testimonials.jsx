@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLanguage } from '../hooks/useLanguage'
 import useScrollReveal from '../hooks/useScrollReveal'
 
@@ -6,11 +6,32 @@ function Testimonials() {
   const { t } = useLanguage()
   const [ref, visible] = useScrollReveal()
   const [index, setIndex] = useState(0)
+  const intervalRef = useRef(null)
   const testimonial = t.testimonials.list[index]
   const total = t.testimonials.list.length
 
-  const prev = () => setIndex((i) => (i === 0 ? total - 1 : i - 1))
-  const next = () => setIndex((i) => (i === total - 1 ? 0 : i + 1))
+  const resetInterval = () => {
+    clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(() => {
+      setIndex((i) => (i === total - 1 ? 0 : i + 1))
+    }, 5000)
+  }
+
+  const prev = () => {
+    setIndex((i) => (i === 0 ? total - 1 : i - 1))
+    resetInterval()
+  }
+  const next = () => {
+    setIndex((i) => (i === total - 1 ? 0 : i + 1))
+    resetInterval()
+  }
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setIndex((i) => (i === total - 1 ? 0 : i + 1))
+    }, 5000)
+    return () => clearInterval(intervalRef.current)
+  }, [total])
 
   return (
     <section
@@ -33,7 +54,7 @@ function Testimonials() {
             <span className="text-primary-fixed">{t.testimonials.sectionTitleAccent}</span>
           </h2>
         </div>
-          <div
+        <div
           className={`max-w-4xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 p-12 md:p-20 rounded-3xl relative shadow-2xl transition-all duration-700 delay-200 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
