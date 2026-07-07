@@ -32,10 +32,10 @@ function ProjectCard({ project, index }) {
           }}
         ></div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-      <div className="relative z-10 bg-black/60 backdrop-blur-sm p-6 rounded-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 motion-reduce:transform-none border border-white/5">
-        <h3 className="text-headline-md font-bold mb-2">{project.title}</h3>
-        <p className="text-body-md opacity-80">{project.description}</p>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
+      <div className="relative z-10 bg-black/30 backdrop-blur-sm p-3 rounded-xl transform translate-y-6 group-hover:translate-y-0 transition-transform duration-300 motion-reduce:transform-none border border-white/5 mx-3 mb-3">
+        <h3 className="text-headline-sm font-bold mb-1">{project.title}</h3>
+        <p className="text-body-sm opacity-70">{project.description}</p>
       </div>
     </article>
   )
