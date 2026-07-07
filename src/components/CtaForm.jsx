@@ -33,16 +33,16 @@ function CtaForm() {
 
       setStatus('loading')
       try {
+        const fd = new FormData()
+        fd.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY || 'e95994e5-77a0-49b9-9531-3065dcf82d0b')
+        fd.append('email', formData.email)
+        fd.append('message', formData.message)
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            access_key: import.meta.env.VITE_WEB3FORMS_KEY,
-            email: formData.email,
-            message: formData.message,
-          }),
+          body: fd,
         })
-        if (!res.ok) throw new Error('API error')
+        const data = await res.json()
+        if (!data.success) throw new Error('API error')
         setStatus('success')
         setFormData({ email: '', message: '' })
         setTimeout(() => setStatus('idle'), 5000)
