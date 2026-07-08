@@ -158,9 +158,9 @@ function CtaForm() {
           </div>
           <div className="relative min-h-[400px]">
             <img
-              alt="Designer working on digital project"
+              alt="Software development team collaborating"
               className="absolute inset-0 w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXqCjd5KYKzJVpK3kuitogoVdesMMYSjYU-L-aWFF_1Abz3FG9Fz1jG2NlsSfEJejIbcE3luqLRCKW0xqtUN2y3g0pDh0hgD8z66tzxfSJ8hqcIEg-dURyg-ruebUDA7VNwgEgzTdIVbIKIh_F2fjP9ylpDIQKaeXl3Bh6IXjqEhpntoZvzLy0H0XBJfKRc6qbzHLNXcqmgrTp4q3A7w9SfZuIfb6xs5TsLD4g7h7Dy0XgztmmQK5dgRzINNE1bdngnJh1bLvkL-m-"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
               loading="lazy"
               width="800"
               height="600"

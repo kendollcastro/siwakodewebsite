@@ -57,9 +57,9 @@ function HeroSection() {
           <div className="lg:col-span-5 relative">
             <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl rotate-2 glow-green-sm">
               <img
-                alt="Tropical modern workspace — Siwakode Costa Rica"
+                alt="Developer coding on modern setup — Siwakode"
                 className="w-full aspect-square object-cover"
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=800&fit=crop"
+                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=800&fit=crop"
                 width="600"
                 height="600"
                 fetchpriority="high"

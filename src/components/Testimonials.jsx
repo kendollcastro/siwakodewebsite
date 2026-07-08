@@ -68,7 +68,7 @@ function Testimonials() {
               <p className="text-primary-fixed/80 font-bold">{testimonial.role}</p>
             </div>
           </div>
-          <blockquote>
+          <blockquote className="min-h-[200px] md:min-h-[160px]">
             <p className="text-headline-md text-white/90 leading-relaxed italic">
               {testimonial.quote}
             </p>
