@@ -6,6 +6,7 @@ function Testimonials() {
   const { t } = useLanguage()
   const [ref, visible] = useScrollReveal()
   const [index, setIndex] = useState(0)
+  const [fade, setFade] = useState(true)
   const intervalRef = useRef(null)
   const testimonial = t.testimonials.list[index]
   const total = t.testimonials.list.length
@@ -13,22 +14,33 @@ function Testimonials() {
   const resetInterval = () => {
     clearInterval(intervalRef.current)
     intervalRef.current = setInterval(() => {
-      setIndex((i) => (i === total - 1 ? 0 : i + 1))
+      setFade(false)
+      setTimeout(() => {
+        setIndex((i) => (i === total - 1 ? 0 : i + 1))
+        setFade(true)
+      }, 200)
     }, 5000)
   }
 
-  const prev = () => {
-    setIndex((i) => (i === 0 ? total - 1 : i - 1))
-    resetInterval()
-  }
-  const next = () => {
-    setIndex((i) => (i === total - 1 ? 0 : i + 1))
+  const goTo = (dir) => {
+    setFade(false)
+    setTimeout(() => {
+      setIndex((i) => {
+        if (dir === 'prev') return i === 0 ? total - 1 : i - 1
+        return i === total - 1 ? 0 : i + 1
+      })
+      setFade(true)
+    }, 200)
     resetInterval()
   }
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setIndex((i) => (i === total - 1 ? 0 : i + 1))
+      setFade(false)
+      setTimeout(() => {
+        setIndex((i) => (i === total - 1 ? 0 : i + 1))
+        setFade(true)
+      }, 200)
     }, 5000)
     return () => clearInterval(intervalRef.current)
   }, [total])
@@ -59,54 +71,59 @@ function Testimonials() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="flex items-center gap-6 mb-10">
-            <div className="w-20 h-20 rounded-full border border-primary-fixed/30 overflow-hidden bg-white/5 shrink-0 flex items-center justify-center text-primary-fixed text-headline-md font-bold">
-              {testimonial.name.charAt(0)}
+          <div
+            className="flex flex-col h-[440px] md:h-[400px] transition-opacity duration-300"
+            style={{ opacity: fade ? 1 : 0 }}
+          >
+            <div className="flex items-center gap-6 mb-10 shrink-0">
+              <div className="w-20 h-20 rounded-full border border-primary-fixed/30 overflow-hidden bg-white/5 shrink-0 flex items-center justify-center text-primary-fixed text-headline-md font-bold">
+                {testimonial.name.charAt(0)}
+              </div>
+              <div>
+                <h3 className="text-headline-md font-bold text-white">{testimonial.name}</h3>
+                <p className="text-primary-fixed/80 font-bold">{testimonial.role}</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-headline-md font-bold text-white">{testimonial.name}</h3>
-              <p className="text-primary-fixed/80 font-bold">{testimonial.role}</p>
-            </div>
-          </div>
-          <blockquote className="min-h-[200px] md:min-h-[160px]">
-            <p className="text-headline-md text-white/90 leading-relaxed italic">
-              {testimonial.quote}
-            </p>
-          </blockquote>
-          <div className="mt-12 flex justify-between items-center">
-            <div className="flex gap-1" aria-label={t.testimonials.starsLabel}>
-              {Array.from({ length: 5 }, (_, i) => (
-                <span
-                  key={i}
-                  className="material-symbols-outlined text-primary-fixed"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                  aria-hidden="true"
-                >
-                  star
+            <blockquote className="flex-1 overflow-y-auto">
+              <p className="text-headline-md text-white/90 leading-relaxed italic">
+                {testimonial.quote}
+              </p>
+            </blockquote>
+            <div className="mt-8 flex justify-between items-center shrink-0">
+              <div className="flex gap-1" aria-label={t.testimonials.starsLabel}>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span
+                    key={i}
+                    className="material-symbols-outlined text-primary-fixed"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                    aria-hidden="true"
+                  >
+                    star
+                  </span>
+                ))}
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-white/60 text-small">
+                  {index + 1} / {total}
                 </span>
-              ))}
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-white/60 text-small">
-                {index + 1} / {total}
-              </span>
-              <div className="flex gap-2">
-                <button
-                  className="w-12 h-12 min-w-[44px] min-h-[44px] rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-primary-fixed hover:text-on-primary-fixed active:scale-90 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-fixed"
-                  type="button"
-                  onClick={prev}
-                  aria-label={t.testimonials.prevLabel}
-                >
-                  <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-                </button>
-                <button
-                  className="w-12 h-12 min-w-[44px] min-h-[44px] rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-primary-fixed hover:text-on-primary-fixed active:scale-90 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-fixed"
-                  type="button"
-                  onClick={next}
-                  aria-label={t.testimonials.nextLabel}
-                >
-                  <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    className="w-12 h-12 min-w-[44px] min-h-[44px] rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-primary-fixed hover:text-on-primary-fixed active:scale-90 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-fixed"
+                    type="button"
+                    onClick={() => goTo('prev')}
+                    aria-label={t.testimonials.prevLabel}
+                  >
+                    <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                  </button>
+                  <button
+                    className="w-12 h-12 min-w-[44px] min-h-[44px] rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-primary-fixed hover:text-on-primary-fixed active:scale-90 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-fixed"
+                    type="button"
+                    onClick={() => goTo('next')}
+                    aria-label={t.testimonials.nextLabel}
+                  >
+                    <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
