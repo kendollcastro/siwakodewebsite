@@ -4,7 +4,7 @@ import useScrollReveal from '../hooks/useScrollReveal'
 
 function TestimonialCard({ testimonial }) {
   return (
-    <article className="bg-black/40 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-2xl shrink-0 w-[85%] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col">
+    <article className="bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-2xl flex flex-col h-full">
       <div className="flex items-center gap-4 mb-6 shrink-0">
         <div className="w-14 h-14 rounded-full border border-primary-fixed/30 overflow-hidden bg-white/5 shrink-0 flex items-center justify-center text-primary-fixed text-headline-md font-bold">
           {testimonial.name.charAt(0)}
@@ -19,7 +19,7 @@ function TestimonialCard({ testimonial }) {
           {testimonial.quote}
         </p>
       </blockquote>
-      <div className="flex gap-1 mt-6 shrink-0" aria-label="5 out of 5 stars">
+      <div className="flex gap-1 mt-6 shrink-0">
         {Array.from({ length: 5 }, (_, i) => (
           <span
             key={i}
@@ -44,7 +44,7 @@ function Testimonials() {
   const autoPlayRef = useRef(null)
 
   const cards = t.testimonials.list
-  const duplicated = [...cards, ...cards]
+  const duplicated = [...cards, ...cards, ...cards]
 
   const updateScrollButtons = useCallback(() => {
     const el = scrollRef.current
@@ -66,13 +66,17 @@ function Testimonials() {
     autoPlayRef.current = setInterval(() => {
       const el = scrollRef.current
       if (!el) return
-      const cardWidth = el.querySelector('article')?.offsetWidth || 0
+      const wrapper = el.firstElementChild
+      if (!wrapper) return
+      const cardWidth = wrapper.getBoundingClientRect().width
       const gap = 24
       const scrollAmount = cardWidth + gap
-      const nextPos = el.scrollLeft + scrollAmount
+      const halfScroll = (el.scrollWidth - el.clientWidth) / 2
 
-      if (nextPos >= (el.scrollWidth - el.clientWidth) / 2 + el.clientWidth) {
+      if (el.scrollLeft + scrollAmount >= el.scrollWidth - el.clientWidth) {
         el.scrollTo({ left: 0, behavior: 'smooth' })
+      } else if (el.scrollLeft + scrollAmount >= halfScroll) {
+        el.scrollBy({ left: scrollAmount, behavior: 'smooth' })
       } else {
         el.scrollBy({ left: scrollAmount, behavior: 'smooth' })
       }
@@ -140,7 +144,7 @@ function Testimonials() {
             {duplicated.map((testimonial, i) => (
               <div
                 key={`${testimonial.name}-${i}`}
-                className={`snap-start transition-all duration-700 ${
+                className={`snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] transition-all duration-700 ${
                   visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${(i % cards.length) * 100}ms` }}
