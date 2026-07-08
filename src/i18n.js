@@ -175,8 +175,8 @@ const translations = {
       ],
       legalTitle: 'Legal',
       legalLinks: [
-        { label: 'Aviso de Privacidad', href: '#' },
-        { label: 'Portafolio', href: '#' },
+        { label: 'Aviso de Privacidad', href: '/privacy' },
+        { label: 'Portafolio', href: '#proyectos' },
         { label: 'Contáctanos', href: '#contacto' },
       ],
       studioTitle: 'Nuestro Estudio',
@@ -360,8 +360,8 @@ const translations = {
       ],
       legalTitle: 'Legal',
       legalLinks: [
-        { label: 'Privacy Policy', href: '#' },
-        { label: 'Portfolio', href: '#' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Portfolio', href: '#proyectos' },
         { label: 'Contact Us', href: '#contacto' },
       ],
       studioTitle: 'Our Studio',

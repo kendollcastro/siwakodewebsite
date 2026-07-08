@@ -57,9 +57,9 @@ function HeroSection() {
           <div className="lg:col-span-5 relative">
             <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl rotate-2 glow-green-sm">
               <img
-                alt="Modern workspace with natural light"
+                alt="Tropical modern workspace — Siwakode Costa Rica"
                 className="w-full aspect-square object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1aF8N3ESogkTyNiL0cvUtcizPUWI7GRF7udWGk34lbkdmZa7R2Qo9mpOmSwVBy6kgBsc4dVyg4OBA1o0pmEnnL4O-qQD3kBh9kXLGlNrdJFO36I1DR1mYZlz3RlJFWuRvOLDEKcD0cZN8FMqROaBu6wDEUEZPt55jq0Mp9zg2TedDfxE3HnMVHYWMfvkGxBTfO4T62_Sj9JNwl3RdYPgbEDR-eKt09tQV-IsLJQIcjOPCA9Dl5W45wFppiqyZfRfngMTsnybE1Xc9"
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=800&fit=crop"
                 width="600"
                 height="600"
                 fetchpriority="high"
